@@ -1,2 +1,2 @@
-videos/
-runs/
+videos/*
+runs/*.env
