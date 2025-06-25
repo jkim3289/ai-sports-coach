@@ -2,14 +2,15 @@ from ultralytics import YOLO
 import cv2
 import os
 
-# Load model
+# Load the VOLOv8 model
 model = YOLO("yolov8n.pt")  # Try yolov8s.pt for better accuracy
 
-# Run inference and save results
-results = model("/Users/jehunkim/Desktop/Summer 2025/ai-sports-coach/videos/test1.MOV", classes=[0, 32, 38], save=True)
+# Select class IDs for 'person', 'sports ball', and 'tennis racket'
+target_classes = [k for k, v in model.names.items() if v in ["person", "sports ball", "tennis racket"]]
 
-# Find where results are saved
+# Run inference on the input video, filtering only target classes and save the output
+results = model("/Users/jehunkim/Desktop/Summer 2025/ai-sports-coach/videos/test1.MOV", classes=target_classes, save=True)
+
+# Get the directory where the results were saved
 save_dir = results[0].save_dir
 print(f"Output saved at: {save_dir}")
-
-print(model.names)
